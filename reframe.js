@@ -1,18 +1,24 @@
-export default function reframe(target, cName) {
-  let frames = typeof target === 'string' ? document.querySelectorAll(target) : target;
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.reframe = factory());
+}(this, (function () { 'use strict';
+
+function reframe(target, cName) {
+  var frames = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in frames)) {
     frames = [frames];
   }
-  const classname = cName || 'js-reframe';
-  for (let i = 0; i < frames.length; i++) {
-    const frame = frames[i];
-    const hasClass = frame.className.split(' ').indexOf(classname);
+  var classname = cName || 'js-reframe';
+  for (var i = 0; i < frames.length; i++) {
+    var frame = frames[i];
+    var hasClass = frame.className.split(' ').indexOf(classname);
     if (hasClass >= 0) return;
-    const div = document.createElement('div');
-    const height = frame.offsetHeight;
-    const width = frame.offsetWidth;
-    const padding = height / width * 100;
-    div.style.paddingTop = `${padding}%`;
+    var div = document.createElement('div');
+    var height = frame.offsetHeight;
+    var width = frame.offsetWidth;
+    var padding = height / width * 100;
+    div.style.paddingTop = padding + '%';
     frame.height = frame.width = '';
     div.className += classname;
     frame.parentNode.insertBefore(div, frame);
@@ -25,6 +31,10 @@ if (window.$) {
   window.$.fn.extend({
     reframe: function reframeFunc(cName) {
       return reframe(this, cName);
-    },
+    }
   });
 }
+
+return reframe;
+
+})));
