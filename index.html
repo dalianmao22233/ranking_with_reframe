@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no" > -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+<script type="text/javascript" src="bundle.js"></script>
+
+    <meta name="HandheldFriendly" content="true">
+
+    <title>Webpack App</title>
+
+    <script src="node_modules/reframe.js/dist/reframe.js"></script>
+      <!--<link rel="stylesheet" media="all" href="node_modules/reframe.js/dist/reframe.css">-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-shim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-sham.min.js"></script>
+<script src="https://wzrd.in/standalone/es7-shim@latest"></script>
+    <link rel="stylesheet" type="text/css" href="./webglglobe.css">
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+      
+
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://d3js.org/queue.v1.min.js"></script>
+    <script type="text/javascript" src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script type="text/javascript" src="./third-party/Three/ThreeWebGL.js"></script>
+<script type="text/javascript" src="./third-party/Three/ThreeExtras.js"></script>
+<script type="text/javascript" src="./third-party/Three/RequestAnimationFrame.js"></script>
+<script type="text/javascript" src="./third-party/Three/Detector.js"></script>
+ <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+ <script language="javascript" type="text/javascript">
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+</script>
+  </head>
+  <style>
+      .js-reframe {
+          padding-top: 56.25%;
+          position: relative;
+          width: 100%;
+      }
+
+      .js-reframe iframe {
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+      }
+
+    path {
+        stroke:white;
+        stroke-width: 1px;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .city {
+        font: 10px sans-serif;
+        font-weight: bold;
+    }
+
+    .legend {
+        font-size: 12px;
+    }
+
+    div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 150px;
+        height: 25px;
+        padding: 2px;
+        font-size: 10px;
+        background: #FFFFE0;
+        border: 1px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+    #container_2d {
+      /*position: absolute;*/
+      width: 500px;
+      height: 400px;
+      float: left;
+      margin:2%;
+      /*padding:20px;*/
+      border:2px solid #d0d0d0;
+      border-radius: 5px;
+
+
+    }
+    #container_3d {
+    /*background: #000000 url(./starfield.jpg) ;*/
+    background-image: url(./starfield.jpg);
+    /*background-image: url(./loading.gif);*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center center;*/
+    margin:2%;
+    /*padding:20px;*/
+    border:2px solid #d0d0d0;
+    border-radius: 5px;
+    width: 400px;
+    height: 400px;
+    float: left;
+    /*height: 100%;*/
+
+    }
+    @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #container_2d {
+      width: 100%;
+      /*height: 100%;*/
+
+    }
+    #container_3d {
+      width: 100%;
+      /*height: 100%;*/
+    }
+}
+  /*.wrap { width: 500px; height: 400px; padding: 0; overflow: hidden; float: left;}*/
+  .frame { width: 1280px; height: 786px; border: 1px solid black}
+
+  /*.frame {*/
+      /*// zoom: 0.25;*/
+      /*-moz-transform: scale(0.5);*/
+      /*-moz-transform-origin: 0 0;*/
+      /*-o-transform: scale(0.5);*/
+      /*-o-transform-origin: 0 0;*/
+      /*-webkit-transform: scale(0.5);*/
+      /*-webkit-transform-origin: 0 0;*/
+  /*}*/
+  /*@media only screen and (max-width: 768px) {*/
+    /*.frame {*/
+      /*width:100%;*/
+    /*}*/
+  /*}*/
+</style>
+  <!-- <body onload="sizeChange()"> -->
+
+<!-- <body onload="sizeChange()"> -->
+ <body>
+
+<div>
+<div id="container_list"></div>
+
+<!-- <div id="container_3d">
+
+
+</div>
+
+<script type="text/javascript" src="./webglglobe.js"></script>
+
+<script type="text/javascript" src="./globe.js" defer></script>
+
+ <div id="container_2d">
+  <script type="text/javascript" src="./2dworld.js"></script>
+</div> -->
+<div class="wrap">
+  <h2><a href="http://yuxinshi.com/3dworld/webglglobe-test.html">3D map</a></h2>
+    <iframe class="frame" src="http://yuxinshi.com/3dworld/webglglobe-test.html">
+    </iframe>
+</div>
+
+<div class="wrap">
+  <h2><a href="http://yuxinshi.com/2dworld/farms.html">2D map</a></h2>
+    <iframe class="frame" src="http://yuxinshi.com/2dworld/farms.html">
+    </iframe>
+</div>
+<!-- <iframe src="http://yuxinshi.com/3dworld/webglglobe-test.html" width="400" height="400"></iframe> -->
+<!-- <iframe src="http://yuxinshi.com/2dworld_withoutresize/farms.html" width="500" height="400" ><iframe> -->
+</div>
+<script src="addiframe.js"></script>
+<script>
+    (function (global, factory) {
+        typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : global.reframe = factory();
+    }(this, function () {
+        'use strict';
+        function Reframe(target, cName) {
+            var frames = typeof target === 'string' ? document.querySelectorAll(target) : target;
+            if (!('length' in frames)) {
+                frames = [frames];
+            }
+            var classname = cName || 'js-reframe';
+            for (var i = 0; i < frames.length; i++) {
+                if (window.CP.shouldStopExecution(1)) {
+                    break;
+                }
+                var frame = frames[i];
+                var hasClass = frame.className.split(' ').indexOf(classname);
+                if (hasClass >= 0)
+                    return false;
+                var div = document.createElement('div');
+                var height = frame.offsetHeight;
+                var width = frame.offsetWidth;
+                var padding = height / width * 100;
+                div.style.paddingTop = padding + '%';
+                frame.height = frame.width = '';
+                div.className += classname;
+                frame.parentNode.insertBefore(div, frame);
+                frame.parentNode.removeChild(frame);
+                div.appendChild(frame);
+            }
+            window.CP.exitedLoop(1);
+            return this;
+        }
+        function reframe(target, cName) {
+            return new Reframe(target, cName);
+        }
+        if (window.$ || window.jQuery || window.Zepto) {
+            window.$.fn.reframe = function reframeFunc(cName) {
+                return new Reframe(this, cName);
+            };
+        }
+        return reframe;
+    }));
+    reframe('iframe');
+    //# sourceURL=pen.js
+</script>
+</body>
+</html>
